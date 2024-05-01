@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 # Takes in list of years and chart type as input (bar or line)
 # Displays the comparison of death amount for years given
 def yearly_comparisons(years, chart_type, deaths_by_year):
+    plt.close()
     deaths_data = {year: deaths_by_year()[year] for year in years if year in deaths_by_year()}
 
     x = list(deaths_data.keys())
@@ -22,10 +23,11 @@ def yearly_comparisons(years, chart_type, deaths_by_year):
         plt.ylabel('Number of Deaths')
         plt.title('Yearly Comparisons (Line Chart)')
     else:
-        print("Invalid chart type. Please choose 'bar' or 'line'.")
+        return("Invalid chart type. Please choose 'bar' or 'line'.")
 
     plt.tight_layout()  
-    plt.show()
+    plt.show(block=False)
+    return deaths_data
 
 # Example
 #years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
@@ -38,6 +40,7 @@ def yearly_comparisons(years, chart_type, deaths_by_year):
 # Takes in list of years and chart type as input (bar or line)
 # Displays the amount of deaths per race for the years given
 def race_deaths_comparison(years, chart_type, death_by_race):
+    plt.close()
     race_labels = ['White', 'Black', 'Asian', 'Black or African American', 'Asian/Indian', 'Other']
     colors = ['blue', 'orange', 'green', 'red', 'purple', 'gray']
     race_deaths = {year: death_by_race(year) for year in years}
@@ -58,11 +61,11 @@ def race_deaths_comparison(years, chart_type, death_by_race):
         plt.ylabel('Number of Deaths')
         plt.legend()
     else:
-        print("Invalid chart type. Please choose 'bar' or 'line'.")
+        return("Invalid chart type. Please choose 'bar' or 'line'.")
 
     plt.tight_layout()
-    plt.show()
-
+    plt.show(block=False)
+    return data
 # Example
 #years = [2012, 2013, 2016, 2020, 2021]
 #chart_type = 'line' 
@@ -75,6 +78,7 @@ def race_deaths_comparison(years, chart_type, death_by_race):
 # Takes in lowest age, highest age and chart type as input (bar or line)
 # Displays the death amount for each age given in the range
 def death_age_range(lowest, highest, chart_type, death_age_range):
+    plt.close()
     age_data = death_age_range(lowest, highest)
     ages = list(age_data.keys())
     deaths = list(age_data.values())
@@ -90,10 +94,11 @@ def death_age_range(lowest, highest, chart_type, death_age_range):
         plt.ylabel('Number of Deaths')
         plt.title(f'Deaths by Age Range ({lowest}-{highest}) (Line Chart)')
     else:
-        print("Invalid chart type. Please choose 'bar' or 'line'.")
+        return("Invalid chart type. Please choose 'bar' or 'line'.")
 
     plt.tight_layout()
-    plt.show()
+    plt.show(block=False)
+    return age_data
 
 # Example 
 #lowest_age = 22 
@@ -107,6 +112,7 @@ def death_age_range(lowest, highest, chart_type, death_age_range):
 # Takes in drug and chart type as input (bar or pie)
 # Displays the distribution of deaths by gender for the specified drug type
 def drug_gender_distribution(drug, chart_type, male_female_drug_usage):
+    plt.close()
     data = male_female_drug_usage(drug)    
     genders = list(data.keys())[1:]
     deaths = [data[gender] for gender in genders]
@@ -120,11 +126,11 @@ def drug_gender_distribution(drug, chart_type, male_female_drug_usage):
         plt.pie(deaths, labels=genders, autopct='%1.1f%%', colors=['skyblue', 'pink'])
         plt.title(f'Deaths by Gender for {drug}')
     else:
-        print("Invalid chart type. Please choose 'bar' or 'pie'.")
+        return("Invalid chart type. Please choose 'bar' or 'pie'.")
 
     plt.tight_layout()
-    plt.show()
-
+    plt.show(block=False)
+    return data
 # Example 
 #drug = 'Tramad'  
 #chart_type = 'pie' 
@@ -136,6 +142,7 @@ def drug_gender_distribution(drug, chart_type, male_female_drug_usage):
 # Takes in year and chart type as input (bar or pie)
 # Displays the distribution of drug amount for the year given
 def drug_distribution_by_year(year, chart_type, drug_distribution_by_year):
+    plt.close()
     drug_data = drug_distribution_by_year(year)
     
     drugs = list(drug_data.keys())[:-1]  
@@ -169,12 +176,11 @@ def drug_distribution_by_year(year, chart_type, drug_distribution_by_year):
         plt.pie(percentages, labels=labels, autopct='%1.1f%%', colors=plt.cm.tab20.colors)
         plt.title(f'Drug Distribution for Year {year} (Pie Chart)')
     else:
-        print("Invalid chart type. Please choose 'bar' or 'pie'.")
-        return
+        return("Invalid chart type. Please choose 'bar' or 'pie'.")
     
     plt.tight_layout()
-    plt.show()
-
+    plt.show(block=False)
+    return drug_data
 # Example 
 #year = 2019 
 #chart_type = 'bar'  
