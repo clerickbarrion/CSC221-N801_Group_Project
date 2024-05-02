@@ -88,13 +88,21 @@ def death_age_range(lowest, highest, chart_type, death_age_range):
         plt.xlabel('Age')
         plt.ylabel('Number of Deaths')
         plt.title(f'Deaths by Age Range ({lowest}-{highest}) (Bar Chart)')
+        plt.xticks(rotation=45, ha='right')
     elif chart_type == 'line':
         plt.plot(ages, deaths, marker='o', color='skyblue')
         plt.xlabel('Age')
         plt.ylabel('Number of Deaths')
         plt.title(f'Deaths by Age Range ({lowest}-{highest}) (Line Chart)')
+        plt.xticks(rotation=45, ha='right')
     else:
         return("Invalid chart type. Please choose 'bar' or 'line'.")
+
+    if highest - lowest + 1 > 25:
+        for i, age in enumerate(ages):
+            if i % 2 == 0:
+                ages[i] = ''
+    plt.xticks(range(len(ages)), ages)
 
     plt.tight_layout()
     plt.show(block=False)
