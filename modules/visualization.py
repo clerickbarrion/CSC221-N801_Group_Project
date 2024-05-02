@@ -113,9 +113,15 @@ def death_age_range(lowest, highest, chart_type, death_age_range):
 # Displays the distribution of deaths by gender for the specified drug type
 def drug_gender_distribution(drug, chart_type, male_female_drug_usage):
     plt.close()
-    data = male_female_drug_usage(drug)    
+    data = male_female_drug_usage(drug)
     genders = list(data.keys())[1:]
-    deaths = [data[gender] for gender in genders]
+    deaths = []
+    for gender in genders:
+        if data[gender] == 0:
+            return(f"No data available for {drug}. Please try again.")
+        else:
+            deaths.append(data[gender])
+        
 
     if chart_type == 'bar':
         plt.bar(genders, deaths, color=['skyblue', 'pink']) 

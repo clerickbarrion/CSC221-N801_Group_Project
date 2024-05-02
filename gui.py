@@ -3,6 +3,9 @@ import modules.stats as stats
 import tkinter as tk
 import tkinter.simpledialog as simpledialog
 
+MIN_YEAR = 2012
+MAX_YEAR = 2022
+
 class DrugStatsGUI:
     def __init__(self):
         self.window = tk.Tk()
@@ -48,47 +51,47 @@ class DrugStatsGUI:
     
     def deaths_by_year(self):
 
-        start_year = simpledialog.askinteger("Year", "Enter start year:")
-        end_year = simpledialog.askinteger("Year", "Enter end year:")
+        start_year = simpledialog.askinteger("Year", "Enter start year:", minvalue=MIN_YEAR, maxvalue=MAX_YEAR, parent=self.window)
+        end_year = simpledialog.askinteger("Year", "Enter end year:", minvalue=MIN_YEAR, maxvalue=MAX_YEAR, parent=self.window)
         years = list(range(start_year, end_year+1))
 
-        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or pie):")
+        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or pie):", parent=self.window)
 
         data = visualization.yearly_comparisons(years, chart_type, stats.deaths_by_year)
         self.data_text.config(text=data)
     def drug_distribution_by_year(self):
 
-        year = simpledialog.askinteger("Year", "Enter a year:")
+        year = simpledialog.askinteger("Year", "Enter a year:", minvalue=MIN_YEAR, maxvalue=MAX_YEAR, parent=self.window)
 
-        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or pie):")
+        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or pie):", parent=self.window)
 
         data = visualization.drug_distribution_by_year(year, chart_type, stats.drug_distribution_by_year)
         self.data_text.config(text=data)
     def death_by_age_range(self):
 
-        lowest = simpledialog.askinteger("Lowest Age", "Enter the lowest age:")
+        lowest = simpledialog.askinteger("Lowest Age", "Enter the lowest age:", parent=self.window)
 
-        highest = simpledialog.askinteger("Highest Age", "Enter the highest age:")
+        highest = simpledialog.askinteger("Highest Age", "Enter the highest age:", parent=self.window)
 
-        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or line):")
+        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or line):", parent=self.window)
 
         data = visualization.death_age_range(lowest, highest, chart_type, stats.death_age_range)
         self.data_text.config(text=data)
     def death_by_race(self):
 
-        start_year = simpledialog.askinteger("Year", "Enter start year:")
-        end_year = simpledialog.askinteger("Year", "Enter end year:")
+        start_year = simpledialog.askinteger("Year", "Enter start year:", minvalue=MIN_YEAR, maxvalue=MAX_YEAR, parent=self.window)
+        end_year = simpledialog.askinteger("Year", "Enter end year:", minvalue=MIN_YEAR, maxvalue=MAX_YEAR, parent=self.window)
         years = list(range(start_year, end_year+1))
 
-        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or line):")
+        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or line):", parent=self.window)
 
         data = visualization.race_deaths_comparison(years, chart_type, stats.death_by_race)
         self.data_text.config(text=data)
     def drug_gender_distribution(self):
 
-        drug = simpledialog.askstring("Drug", "Enter a drug:")
+        drug = simpledialog.askstring("Drug", "Enter a drug:", parent=self.window)
 
-        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or pie):")
+        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or pie):", parent=self.window)
 
         data = visualization.drug_gender_distribution(drug, chart_type, stats.male_female_drug_usage)
         self.data_text.config(text=data)
