@@ -133,12 +133,12 @@ class DrugStatsGUI:
     data = visualization.drug_distribution_by_year(
         year, chart_list[chart_type], stats.drug_distribution_by_year)
 
-    data_formatted = "Drug\tTotal\tPercentage"
+    data_formatted = "Drug\t\t\tTotal\t\t\tPercentage"
     for drug, totals in data.items():
       if drug == "Total":
-        data_formatted += f"\n{drug}\t{totals}\t100%"
+        data_formatted += f"\n{drug}\t\t\t{totals}\t\t\t100%"
       else:
-        data_formatted += f"\n{drug[:7]}\t{totals[0]}\t{totals[1]}%"
+        data_formatted += f"\n{drug[:6]}\t\t\t{totals[0]}\t\t\t{totals[1]}%"
 
     self.data_text.config(text=data_formatted)
 
@@ -209,7 +209,7 @@ class DrugStatsGUI:
     for i in years:
       data_formatted += f"\t{i}"
     for race, deaths in data.items():
-      data_formatted += f"\n{race[:8]}"
+      data_formatted += f"\n{race[:6]}"
       for i in deaths:
         data_formatted += f"\t{i}"
     
