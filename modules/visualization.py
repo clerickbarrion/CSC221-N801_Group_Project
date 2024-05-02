@@ -1,7 +1,9 @@
 # Rough draft
 
-import matplotlib.pyplot as plt
-
+try:
+  import matplotlib.pyplot as plt
+except:
+  print("Matplotlib not found. Please install it: pip install matplotlib")
 
 # Takes in list of years and chart type as input (bar or line)
 # Displays the comparison of death amount for years given
@@ -41,7 +43,7 @@ def yearly_comparisons(years, chart_type, deaths_by_year):
 # Displays the amount of deaths per race for the years given
 def race_deaths_comparison(years, chart_type, death_by_race):
     plt.close()
-    race_labels = ['White', 'Black', 'Asian', 'Black or African American', 'Asian/Indian', 'Other']
+    race_labels = ['White', 'Unknown', 'Asian - All', 'Black or African American', 'Other']
     colors = ['blue', 'orange', 'green', 'red', 'purple', 'gray']
     race_deaths = {year: death_by_race(year) for year in years}
     data = {race: [race_deaths[year][race] for year in years] for race in race_labels}
@@ -97,13 +99,13 @@ def death_age_range(lowest, highest, chart_type, death_age_range):
         plt.xticks(rotation=45, ha='right')
     else:
         return("Invalid chart type. Please choose 'bar' or 'line'.")
-
+    
     if highest - lowest + 1 > 25:
         for i, age in enumerate(ages):
             if i % 2 == 0:
                 ages[i] = ''
     plt.xticks(range(len(ages)), ages)
-
+  
     plt.tight_layout()
     plt.show(block=False)
     return age_data
@@ -129,7 +131,7 @@ def drug_gender_distribution(drug, chart_type, male_female_drug_usage):
             return(f"No data available for {drug}. Please try again.")
         else:
             deaths.append(data[gender])
-        
+
 
     if chart_type == 'bar':
         plt.bar(genders, deaths, color=['skyblue', 'pink']) 
@@ -158,10 +160,10 @@ def drug_gender_distribution(drug, chart_type, male_female_drug_usage):
 def drug_distribution_by_year(year, chart_type, drug_distribution_by_year):
     plt.close()
     drug_data = drug_distribution_by_year(year)
-    
+
     drugs = list(drug_data.keys())[:-1]  
     percentages = [drug_data[drug][1] for drug in drugs]
-    
+
     threshold = 2.0  
     other_percentage = sum(p for p in percentages if p < threshold)
     other_drugs = [drug for drug, p in zip(drugs, percentages) if p < threshold]
@@ -170,7 +172,7 @@ def drug_distribution_by_year(year, chart_type, drug_distribution_by_year):
     percentages = [p for p in percentages if p >= threshold]
     drugs.append('Other')
     percentages.append(other_percentage)
-    
+
     if chart_type == 'bar':
         plt.figure(figsize=(10, 6))
         plt.bar(drugs, percentages, color='skyblue')
@@ -185,13 +187,13 @@ def drug_distribution_by_year(year, chart_type, drug_distribution_by_year):
         labels = [drug for drug in labels if drug != 'Other']
         labels.append('Other')
         percentages.append(other_percentage)
-        
+
         plt.figure(figsize=(8, 8))
         plt.pie(percentages, labels=labels, autopct='%1.1f%%', colors=plt.cm.tab20.colors)
         plt.title(f'Drug Distribution for Year {year} (Pie Chart)')
     else:
         return("Invalid chart type. Please choose 'bar' or 'pie'.")
-    
+
     plt.tight_layout()
     plt.show(block=False)
     return drug_data
@@ -199,8 +201,3 @@ def drug_distribution_by_year(year, chart_type, drug_distribution_by_year):
 #year = 2019 
 #chart_type = 'bar'  
 #drug_distribution_by_year(year, chart_type)
-
-
-
-
-
