@@ -55,7 +55,7 @@ class DrugStatsGUI:
         end_year = simpledialog.askinteger("Year", "Enter end year:", minvalue=MIN_YEAR, maxvalue=MAX_YEAR, parent=self.window)
         years = list(range(start_year, end_year+1))
 
-        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or pie):", parent=self.window)
+        chart_type = simpledialog.askstring("Chart Type", "Enter a chart type (bar or line):", parent=self.window)
 
         data = visualization.yearly_comparisons(years, chart_type, stats.deaths_by_year)
         self.data_text.config(text=data)
